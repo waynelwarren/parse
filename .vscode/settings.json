@@ -1,0 +1,26 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "tuple": "c",
+        "stdlib.h": "c",
+        "*.tcc": "c",
+        "exception": "c",
+        "system_error": "c",
+        "random": "c",
+        "fstream": "c",
+        "functional": "c",
+        "istream": "c",
+        "limits": "c",
+        "new": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "stdexcept": "c",
+        "streambuf": "c",
+        "regex": "c",
+        "__locale": "c",
+        "__tuple": "c",
+        "bitset": "c",
+        "ios": "c",
+        "locale": "c"
+    }
+}
