@@ -13,15 +13,8 @@ FILE* fp;
 void nextsym(void);
 char *name(Symbol);
 
-int peek(Symbol s) {
-    if (sym == s) {
-        return 1;
-    }
-    return 0;
-}
-
 int expect(Symbol s) {
-    if (peek(s)) {
+    if (sym == s) {
         nextsym();
         return 1;
     }
@@ -130,15 +123,15 @@ node_t* expression(void);
 node_t* factor() {
     // fprintf(stderr, "factor %s,%c\n", name(sym), val);
     node_t* factNode = newNode();
-    if (peek(ident)) {
+    if (sym==ident) {
         factNode->nodeValue = val;
         factNode->nodeType = ident;
         nextsym();
-    } else if (peek(number)) {
+    } else if (sym==number) {
         factNode->nodeValue = val;
         factNode->nodeType = number;
         nextsym();
-    } else if (peek(lparen)) {
+    } else if (sym==lparen) {
         nextsym();
         node_t* exprNode = expression();
         addNodeLast(factNode, exprNode);
@@ -155,7 +148,7 @@ node_t* term() {
     node_t* termNode = newNode();
     node_t* factNode = factor();
     addNodeLast(termNode, factNode);
-    while (peek(times) || peek(slash)) {
+    while (sym==times || sym==slash) {
         termNode->nodeType = sym;
         nextsym();
         factNode = term();
@@ -171,7 +164,7 @@ node_t* expression() {
     addNodeLast(exprNode, termNode);
     exprNode->nodeType = expr;
     exprNode->nodeValue = 0;
-    while (peek(plus) || peek(minus)) {
+    while (sym==plus || sym==minus) {
         exprNode->nodeType = sym;
         nextsym();
         termNode = expression();
@@ -190,9 +183,6 @@ int main(int argc, char *argv[]) {
     putchar('\n');
     printf("original tree:\n");
     printTree(exprNode, 0);
-    // reduceTree(exprNode);
-    // printf("reduced tree:\n");
-    // printTree(exprNode, 0);
     printPrefix(exprNode);
     putchar('\n');
     printPostfix(exprNode);
